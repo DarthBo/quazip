@@ -39,16 +39,8 @@ else()
     endmacro()
 endif()
 
-# Use system zlib on unix and Qt ZLIB on Windows
-if(UNIX OR MINGW)
-    find_package(ZLIB REQUIRED)
-else()
-    set(ZLIB_INCLUDE_DIRS "${QT_ROOT}/src/3rdparty/zlib" CACHE STRING "Path to ZLIB headers of Qt")
-    set(ZLIB_LIBRARIES "")
-    if(NOT EXISTS "${ZLIB_INCLUDE_DIRS}/zlib.h")
-        message("Please specify a valid zlib include dir")
-    endif()
-endif()
+# Find zlib
+find_package(ZLIB REQUIRED)
 
 # All build libraries are moved to this directory
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
