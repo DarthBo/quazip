@@ -51,7 +51,7 @@ find_package(ZLIB REQUIRED)
 # All build libraries are moved to this directory
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
-set(QUAZIP_LIB_TARGET_NAME ${QUAZIP_LIB_VERSION_PREFIX}Quazip CACHE
+set(QUAZIP_LIB_TARGET_NAME quazip CACHE
     INTERNAL "Target name of libquazip" FORCE)
 
 add_subdirectory(quazip)

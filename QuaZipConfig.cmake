@@ -1,44 +1,40 @@
-# QUAZIP_FOUND               - QuaZip library was found
-# QUAZIP_INCLUDE_DIR         - Path to QuaZip include dir
-# QUAZIP_INCLUDE_DIRS        - Path to QuaZip and zlib include dir (combined from QUAZIP_INCLUDE_DIR + ZLIB_INCLUDE_DIR)
-# QUAZIP_LIBRARIES           - List of QuaZip libraries
-# QUAZIP_ZLIB_INCLUDE_DIR    - The include dir of zlib headers
+# QuaZip_FOUND               - QuaZip library was found
+# QuaZip_INCLUDE_DIR         - Path to QuaZip include dir
+# QuaZip_INCLUDE_DIRS        - Path to QuaZip and zlib include dir (combined from QUAZIP_INCLUDE_DIR + ZLIB_INCLUDE_DIR)
+# QuaZip_LIBRARIES           - List of QuaZip libraries
+# QuaZip_ZLIB_INCLUDE_DIR    - The include dir of zlib headers
 
 
-IF (QUAZIP_INCLUDE_DIRS AND QUAZIP_LIBRARIES)
+IF (QuaZip_INCLUDE_DIRS AND QuaZip_LIBRARIES)
 	# in cache already
-	SET(QUAZIP_FOUND TRUE)
-ELSE (QUAZIP_INCLUDE_DIRS AND QUAZIP_LIBRARIES)
-	IF (Qt5Core_FOUND)
-		set(QUAZIP_LIB_VERSION_SUFFIX 5)
-	ENDIF()
+	SET(QuaZip_FOUND TRUE)
+ELSE (QuaZip_INCLUDE_DIRS AND QuaZip_LIBRARIES)
 	IF (WIN32)
 		get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_CURRENT_LIST_DIR}/../../.." ABSOLUTE)
-		FIND_LIBRARY(QUAZIP_LIBRARIES
-			NAMES libquazip${QUAZIP_LIB_VERSION_SUFFIX} quazip${QUAZIP_LIB_VERSION_SUFFIX}
+		FIND_LIBRARY(QuaZip_LIBRARIES
+			NAMES libquazip quazip
 			HINTS ${PACKAGE_PREFIX_DIR}
 			PATH_SUFFIXES lib)
-		FIND_PATH(QUAZIP_INCLUDE_DIR
+		FIND_PATH(QuaZip_INCLUDE_DIR
 			NAMES quazip.h
 			HINTS ${PACKAGE_PREFIX_DIR}
-			PATH_SUFFIXES include/quazip${QUAZIP_LIB_VERSION_SUFFIX})
-		FIND_PATH(QUAZIP_ZLIB_INCLUDE_DIR
+			PATH_SUFFIXES include/quazip)
+		FIND_PATH(QuaZip_ZLIB_INCLUDE_DIR
 			NAMES zlib.h)
 	ELSE(WIN32)
 		FIND_PACKAGE(PkgConfig)
 		pkg_check_modules(PC_QUAZIP quazip)
-		FIND_LIBRARY(QUAZIP_LIBRARIES
-			WIN32_DEBUG_POSTFIX d
-			NAMES quazip${QUAZIP_LIB_VERSION_SUFFIX}
+		FIND_LIBRARY(QuaZip_LIBRARIES
+			NAMES quazip
 			HINTS /usr/lib /usr/lib64
 		)
-		FIND_PATH(QUAZIP_INCLUDE_DIR quazip.h
+		FIND_PATH(QuaZip_INCLUDE_DIR quazip.h
 			HINTS /usr/include /usr/local/include
-            PATH_SUFFIXES ${QUAZIP_LIB_VERSION_PREFIX}Quazip
+            PATH_SUFFIXES quazip
 		)
-		FIND_PATH(QUAZIP_ZLIB_INCLUDE_DIR zlib.h HINTS /usr/include /usr/local/include)
+		FIND_PATH(QuaZip_ZLIB_INCLUDE_DIR zlib.h HINTS /usr/include /usr/local/include)
 	ENDIF (WIN32)
 	INCLUDE(FindPackageHandleStandardArgs)
-	SET(QUAZIP_INCLUDE_DIRS ${QUAZIP_INCLUDE_DIR} ${QUAZIP_ZLIB_INCLUDE_DIR})
-	find_package_handle_standard_args(QUAZIP DEFAULT_MSG  QUAZIP_LIBRARIES QUAZIP_INCLUDE_DIR QUAZIP_ZLIB_INCLUDE_DIR QUAZIP_INCLUDE_DIRS)
-ENDIF (QUAZIP_INCLUDE_DIRS AND QUAZIP_LIBRARIES)
+	SET(QuaZip_INCLUDE_DIRS ${QuaZip_INCLUDE_DIR} ${QuaZip_ZLIB_INCLUDE_DIR})
+	find_package_handle_standard_args(QuaZip DEFAULT_MSG  QuaZip_LIBRARIES QuaZip_INCLUDE_DIR QuaZip_ZLIB_INCLUDE_DIR QuaZip_INCLUDE_DIRS)
+ENDIF (QuaZip_INCLUDE_DIRS AND QuaZip_LIBRARIES)
